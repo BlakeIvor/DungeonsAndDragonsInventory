@@ -4,6 +4,12 @@
 
  # Running the Project
 
+## Create .env
+1. Copy `.env.example` to `.env`
+2. Edit `.env`, changing:
+  - The text `RANDOM_PASSWORD` to a password which is actually random
+  - The text `SOMETHING_LONG_AND_RANDOM` to random text.
+
  ## Start the Docker Services
 
 Run:
