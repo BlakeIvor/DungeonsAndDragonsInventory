@@ -1,0 +1,48 @@
+<div class="item">
+	<h3>
+		<form action="{% url 'customize_item' character_id=character.id item_id=item.id property='custom_name' %}" method="post" style="float: left;">
+			{% csrf_token %}
+			<input class="item-name" name="custom_name" 
+					value="{{item.name}}">
+			</input>
+		</form>
+		{% for property in item.properties %}
+			<img class="property" src="/static/dndinventory/{{property.property}}.png" alt="{{property.property}}">
+		{% endfor %}
+	</h3>
+	<form action="{% url 'customize_item' character_id=character.id item_id=item.id property='custom_category' %}" method="post" style="float: left;">
+		{% csrf_token %}
+		<input class="item-category" name="custom_category" 
+				value="{{item.category}}">
+		</input>
+	</form>
+	<form action="{% url 'customize_item' character_id=character.id item_id=item.id property='quantity' %}" method="post" style="float: left;">
+		{% csrf_token %}
+		<input class="item-stats" name="quantity" 
+				value="x{{item.quantity}}">
+		</input>
+	</form>
+	
+	<form action="{% url 'customize_item' character_id=character.id item_id=item.id property='custom_price' %}" method="post" style="float: left;">
+		{% csrf_token %}
+		<input class="item-stats" name="custom_price" 
+				value="{{item.price}} gold">
+		</input>
+	</form>
+	<form action="{% url 'customize_item' character_id=character.id item_id=item.id property='custom_weight' %}" method="post" style="float: left;">
+		{% csrf_token %}
+		<input class="item-stats" name="custom_weight" 
+				value="{{item.weight}}lbs">
+		</input>
+	</form>
+	{% if item.is_weapon %}
+	<p class="weapon">Deals {{item.weapon.damage}} Damage</p>
+	{% endif %}
+	{% if item.has_description %}
+	<p class="weapon">{{item.description}}</p>
+	{% endif %}
+	<form>
+		<input type="hidden" name="item_id" value="{{item.id}}"></input>
+		<input type="submit" value="Remove"></input>
+	</form>
+</div>

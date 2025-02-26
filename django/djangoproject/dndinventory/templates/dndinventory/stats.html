@@ -1,0 +1,86 @@
+{% load static %}
+<body style="background-color: rgb(230, 217, 176);">
+
+	<ul style="font-family: fantasy; margin: auto; text-align: center; text-align: right;">
+		<a href="{% url 'home' %}">Home</a>
+		<a href="{% url 'user' %}">Characters</a>
+		<a href="{% url 'about' %}">About</a>
+		<a href="{% url 'stats' %}">Stats</a>
+		<a href="{% url 'gettingstarted' %}">Getting Started</a>
+	</ul>
+<img src="https://npr.brightspotcdn.com/16/1c/ac84a3d1461aad881ffbc2ab4819/beginner-dungeons-dragons-libby-hanssen.jpg" alt="Pic3" style="width:450px;height: 300px;float: left; border-radius: 50%;">
+<img src="https://www.milwaukeeindependent.com/wp-content/uploads/2022/09/090222_ThereBeDragons_STK_TStudio.jpg" alt="Pic4DB" style="width: 450px; height: 300px; float: inline-end; border-radius: 50%;">
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	<link rel="stylesheet" href="{% static 'dndinventory/styles.css' %}">
+	<script type="text/javascript" src="{% static 'js/htmx.min.js' %}" defer></script>
+</head>
+<div class="content"  style="background-color: rgb(230, 217, 176); width: 500px; height: auto;">
+    
+	<h1 style="font-family: fantasy;"> Hello, {{user}}!</h1>
+	<h1 style="font-family: fantasy;"> You have {{ characters.count }} characters: </h1>
+	{% for character in characters %}
+	<div class="character" style="height: fit-content;"> 
+		<h2 class="character-name" style="font-family: fantasy;">{{character.name}} has...</h2>
+		<h2 style="font-family: fantasy;">{{character.inventories.count}} inventories:</h2>
+		{% for inventory in character.inventories %}
+			<h2 class="inventory-text" style="font-family: fantasy;">{{inventory.name}} storing {{inventory.items.count}} items</h2>
+		{% endfor %}
+	</div>
+	{% endfor %}
+
+
+
+</div>
+<!-- <div class="content" style="width: auto; height: auto;">
+	<div id="tableContainer">
+		<table id="myTable">
+			<thead>
+				<tr>
+					<th>Session Date</th>
+					<th>Experience Gained</th>
+					<th style="width: 75x;">Character (Lvl)</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				 Existing rows (if any) 
+				<tr>
+					<td><input type="date" name="item[]" placeholder="Enter Date"></td>
+					<td><input type="number" name="quantity[]" placeholder="Enter quantity"></td>
+					<td><input type="text" name="notes[]" placeholder="Gandalf (8)" style="width: auto;"></td>
+					<td><button onclick="deleteRow(this)">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<button onclick="addRow()">Add Row</button>
+	</div> 
+	</div> -->
+
+<div>  
+    <h1 style="text-align: center; font-family: fantasy; background-color: rgb(230, 217, 176);">Quote of the Day: Help - Blake at 5 AM</h1>
+</div>
+
+<script>
+	function addRow() {
+    const table = document.getElementById("myTable");
+    const newRow = table.insertRow();
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    const cell3 = newRow.insertCell(2);
+	const cell4 = newRow.insertCell(3);
+
+    cell1.innerHTML = '<input type="text" name="item[]" placeholder="Enter item">';
+    cell2.innerHTML = '<input type="number" name="quantity[]" placeholder="Enter quantity">';
+	cell3.innerHTML = '<input type="text" name="notes[]" placeholder="Gandalf (8)" style="width: auto">';
+    cell4.innerHTML = '<input button onclick="deleteRow(this)">Delete</button>';
+}
+
+function deleteRow(button) {
+    const row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+</script>	
+
+</body>

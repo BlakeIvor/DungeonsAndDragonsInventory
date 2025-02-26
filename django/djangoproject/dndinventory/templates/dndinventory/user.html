@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}User{% endblock %}
+{% block container %}
+{% if user.is_authenticated %}
+<style>
+body {
+    background: url('/static/dndinventory/home-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f5e6d0;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+  }
+
+</style>
+<!-- Add a margin-top to create space below the navbar -->
+<div style="margin-top: 100px;"> <!-- Adjust the value as needed -->
+    <!-- Background with D&D Theme -->
+    <div style="background-image: url('https://images.unsplash.com/photo-1547342220-d0d6d07c5636'); background-size: cover; background-position: center; padding: 20px;">
+
+    <img src="https://i.guim.co.uk/img/media/38b9c7589893c611141b1becbb0ae1057757831d/0_0_6000_3600/master/6000.jpg?width=1200&quality=85&auto=format&fit=max&s=0f28a93ea7f7e0f03c31156b3a0686ab" alt="Pic1" style="width:450px;height: 300px;float: left; border-radius: 50%; box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);">
+    <img src="https://cf.geekdo-images.com/jdYhJ3hKaXELv1jrocLhlA__opengraph/img/Gbn1t72zcUWDQw3U5oCar9LyVFw=/0x0:1555x816/fit-in/1200x630/filters:strip_icc()/pic7603430.jpg" alt="Pic2DB" style="width: 450px;height: 300px; float: inline-end; border-radius: 50%; box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);">
+
+    <h1 style="font-family: 'Cinzel', serif; font-size: 2.5em; text-align: center; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); color: #f8f1e5;">Welcome {{ user.username }}!</h1>
+
+    <!-- Flexbox container for centering characters -->
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; margin-top: 30px;">
+
+    {% for character in characters %}
+    <div class="content" style="align-items: center; text-align: center; width: 250px; height: auto; border-radius: 10px; background-color: rgba(113, 111, 104, 0.8); padding: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">
+      <div class="character" style="align-items: center; text-align: center; margin: 25px;">
+        <a href="{% url 'character' id=character.id %}" style="font-family: 'Cinzel', serif; font-size: 1.5em; color: #f8f1e5; text-decoration: none; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);">
+          {{ character.name }}
+        </a>
+        <form>
+          <input type="hidden" name="character_id" value="{{character.id}}"></input>
+          <input type="submit" value="Delete" style="background-color: #8b5e3c; color: white; padding: 8px 15px; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 14pt; border: none; cursor: pointer;">
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    </div> <!-- end flexbox container -->
+
+    <center>
+      <form style="clear: both; text-align: center;">
+        <label style="font-family: 'Cinzel', serif; color: #f8f1e5;">Character Name</label><br>
+        <input value="" name="character_name" style="padding: 10px; font-size: 16pt; border-radius: 5px; border: 1px solid #f8f1e5; margin-bottom: 10px; background-color: rgba(0, 0, 0, 0.3); color: #f8f1e5;">
+        <input type="submit" value="Add" style="background-color: #8b5e3c; color: white; padding: 10px 20px; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 16pt; border: none; cursor: pointer;">
+      </form>
+    </center>
+
+    
+
+    </div>
+  
+    <!-- Log Out and Password Change Section at the Bottom Left -->
+    <div style="position: fixed; bottom: 20px; left: 20px; font-family: 'Cinzel', serif; color: #f8f1e5;">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #8b5e3c; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16pt; cursor: pointer; border: none;">Log Out</button>
+      </form>
+
+      <p><a href="{% url 'password_change' %}" style="color: #f8f1e5; font-size: 16pt;">Password Change</a></p>
+    </div>
+
+</div> <!-- end margin-top container -->
+
+{% else %}
+<p style="text-align: center; font-family: 'Cinzel', serif; color: #f8f1e5; font-size: 1.5em;">You are not logged in</p>
+<div style="text-align: center;">
+  <a href="{% url 'login' %}" style="font-family: 'Cinzel', serif; color: #f8f1e5;">Log In</a>
+</div>
+<div style="text-align: center;">
+  <a href="{% url 'signup' %}" style="font-family: 'Cinzel', serif; color: #f8f1e5;">Signup</a>
+</div>
+<div>
+	<h1 style="text-align: center; font-family: 'Cinzel', serif; background-color: rgb(230, 217, 176); font-size: 2em; color: #8b5e3c; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); padding: 15px;">Quote of the Day: Into The Wilds</h1>
+  </div>
+{% endif %}
+{% endblock %}

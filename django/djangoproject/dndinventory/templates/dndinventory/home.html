@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome Adventurer{% endblock %}
+
+{% block container %}
+<style>
+  body {
+    background: url('/static/dndinventory/home-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f5e6d0;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 0 15px #aa0000;
+  }
+
+  h1 {
+    font-family: "Cinzel", serif;
+    font-size: 36px;
+    text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.7);
+    color: #ffcc00;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    color: white;
+    background: #aa0000;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .button:hover {
+    background: #ff3333;
+  }
+
+  .quote {
+    font-family: "Fantasy", serif;
+    font-size: 24px;
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+</style>
+
+<div class="container">
+  <h1>Welcome to the Realm of Adventure</h1>
+  
+  {% if user.is_authenticated %}
+    <h2>Greetings, {{ user.username }}!</h2>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button class="button" type="submit">Log Out</button>
+    </form>
+    <p><a class="button" href="{% url 'password_change' %}">Change Password</a></p>
+    <p><a class="button" href="user">Enter the Guild</a></p>
+  {% else %}
+    <p>You stand at the gates of adventure. Choose your path.</p>
+    <a class="button" href="{% url 'login' %}">Log In</a>
+    <a class="button" href="{% url 'signup' %}">Sign Up</a>
+  {% endif %}
+  
+  <div class="quote">Quote of the Day: "LINK START!!!"</div>
+</div>
+
+{% endblock %}

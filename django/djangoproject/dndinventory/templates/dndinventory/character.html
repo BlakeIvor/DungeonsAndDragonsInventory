@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}{{character.name}}'s Character Page{% endblock %}
+
+{% block container %}
+
+<style>
+	body {
+		background: url('/static/dndinventory/home-background.jpg') no-repeat center center fixed;
+		background-size: cover;
+		color: #f5e6d0;
+		font-family: "Poppins", sans-serif;
+		text-align: center;
+	}
+	
+</style>
+<!-- Background Image for D&D vibe -->
+<div style="background-image: url('https://images.unsplash.com/photo-1539684947359-37f3c8d8cc18'); background-size: cover; background-position: center; padding: 20px;">
+
+
+
+<div class="content" style="height: 100%; background-color: rgba(230, 217, 176, 0.8); border-radius: 10px; padding: 20px; margin-top: 20px;">
+
+<div class="character">
+
+<h1 style="font-family: 'Cinzel', serif; font-size: 2.5em; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); color: #f8f1e5;">{{character.name}}'s Character Page</h1>
+
+<div>
+<form>
+	<label style="font-size: 18pt; font-family: 'Cinzel', serif; color: #8b5e3c;">Inventory Name</label><br>
+  	<input value="" name="inventory_name" style="padding: 5px; font-size: 16pt; border-radius: 5px; border: 1px solid #8b5e3c;">
+	<input type="submit" value="Add" style="background-color: #8b5e3c; color: white; padding: 10px 20px; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 16pt; border: none; cursor: pointer;">
+</form>
+
+<div>
+{% for inventory in character.inventories %}
+<div class="inventory" style="background-color: rgba(150, 100, 50, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+	<h2 class="inventory-name" style="font-family: 'Cinzel', serif; color: #8b5e3c; font-size: 2em; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);">{{inventory.name}}</h2>
+	<form>
+		<input type="hidden" name="inventory_id" value="{{inventory.id}}">
+		<input type="submit" value="Delete" style="background-color: #8b5e3c; color: white; padding: 8px 15px; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 14pt; border: none; cursor: pointer;">
+	</form>
+	<ul style="list-style-type: none; padding-left: 20px;">
+	{% for item in inventory.items %}
+		{% include "dndinventory/item.html" %}   
+	{% endfor %}
+	</ul>
+</div>
+{% endfor %}
+<h1 style="font-family: 'Cinzel', serif; color: #8b5e3c; font-size: 1.5em;">You have {{character.inventories.count}} inventories</h1>
+
+<h2 style="font-family: 'Cinzel', serif; color: #8b5e3c;">Add Item from Existing</h2>
+<form>
+	<label style="color: #8b5e3c;">Inventory</label><br>
+	<select id="inventory-select" name="inventory" style="font-size: 16pt; padding: 5px; border-radius: 5px; border: 1px solid #8b5e3c;">
+	{% for inventory in character.inventories %}
+	<option value="{{inventory.id}}"> 
+		{{inventory.name}}
+	</option>
+	{% endfor %}
+	</select>
+	<div>
+	{% include "dndinventory/equipment_search.html" %}   
+	</div>
+	<input type="submit" value="Add" style="background-color: #8b5e3c; color: white; padding: 10px 20px; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 16pt; border: none; cursor: pointer;">
+</form>
+
+<h2 style="font-family: 'Cinzel', serif; color: #8b5e3c;">Add Custom Item</h2>
+<form>
+	<label style="color: #8b5e3c;">Inventory</label><br>
+	<select id="inventory-select" name="inventory" style="font-size: 16pt; padding: 5px; border-radius: 5px; border: 1px solid #8b5e3c;">
+	{% for inventory in character.inventories %}
+	<option value="{{inventory.id}}"> 
+		{{inventory.name}}
+	</option>
+	{% endfor %}
+	</select>
+	<div>
+		<label style="color: #8b5e3c;"> Item Name: 
+			<input class="custom-item-name" name="custom_name" value="Item" style="font-size: 16pt; padding: 5px; border-radius: 5px; border: 1px solid #8b5e3c;">
+			</input>
+		</label>
+		<br>
+		<label style="color: #8b5e3c;"> Item Category: 
+			<input class="custom-item-category" name="custom_category" value="Custom Items" style="font-size: 16pt; padding: 5px; border-radius: 5px; border: 1px solid #8b5e3c;">
+			</input>
+		</label>
+		<br>
+		<label style="color: #8b5e3c;"> Item Price: 
+			<input type="number" class="custom-item-price" name="custom_price" value="0" style="font-size: 16pt; padding: 5px; border-radius: 5px; border: 1px solid #8b5e3c;">
+			</input>
+		</label>
+		<br>
+		<label style="color: #8b5e3c;"> Item Weight: 
+			<input type="number" class="custom-item-weight" name="custom_weight" value="0" style="font-size: 16pt; padding: 5px; border-radius: 5px; border: 1px solid #8b5e3c;">
+			</input>
+		</label>
+		<br>
+	</div>
+	<input type="submit" value="Add" style="background-color: #8b5e3c; color: white; padding: 10px 20px; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 16pt; border: none; cursor: pointer;">
+</form>
+</div>
+</div>
+
+<div>  
+	<h1 style="text-align: center; font-family: 'Cinzel', serif; background-color: rgb(230, 217, 176); font-size: 2em; color: #8b5e3c; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); padding: 15px;">Quote of the Day: Live Life</h1>
+</div>
+
+</div>
+{% endblock %}

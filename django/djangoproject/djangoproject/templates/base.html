@@ -1,0 +1,59 @@
+{% load static %}
+<html>
+<style>
+	.header-container {
+		position: absolute;
+		top: 20px; /* Keeps it at the top */
+		right: 20px; /* Aligns it to the right */
+		background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black for contrast */
+		padding: 10px 20px;
+		border-radius: 8px;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+	}
+
+	h1 {
+		font-family: 'Poppins', fantasy;
+		font-size: 3em;
+		letter-spacing: 2px;
+	}
+
+	p {
+		font-family: 'Poppins', fantasy;
+		font-size: 1.2em;
+	}
+	div {text-align: center;
+	font-family: fantasy;}
+	h2 {text-align: center;
+	font-family: fantasy;}
+	label {text-align: center;
+	font-family: fantasy;}
+	a {
+		font-family: fantasy;
+	}
+	
+</style>
+<body style="background-color:rgb(230, 217, 176)">
+	<div class="header-container">
+	<ul style="text-align: right;">
+		<a href="{% url 'home' %}">Home</a>
+		<a href="{% url 'user' %}">Characters</a>
+		<a href="{% url 'about' %}">About</a>
+		<a href="{% url 'stats' %}">Stats</a>
+		<a href="{% url 'gettingstarted' %}">Getting Started</a>
+	</ul>
+</div>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	<link rel="stylesheet" href="{% static 'dndinventory/styles.css' %}">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<script type="text/javascript" src="{% static 'js/htmx.min.js' %}" defer></script>
+</head>
+
+
+
+
+{% block container %}{% endblock %}
+</body>
+</html>
+
