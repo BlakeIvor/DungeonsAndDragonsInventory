@@ -2,6 +2,8 @@
  Local webapp for keeping track of inventory items in dungeons and dragons
  Originally created as part of Database Management & Systems design by Blake Shea, Klee Baumhover, Matt Cooney, and Ben R-G. This branch has been expanded on and maintained by Blake Shea.
 
+ ![Inventory Page](./image_refs/DandDInventory.png)
+
  # Running the Project
 
 ## Create .env
